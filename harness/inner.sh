@@ -2,7 +2,7 @@
 # Runs INSIDE the harness container. Starts headless sway, launches Noctalia,
 # runs optional IPC steps, and writes screenshots to /out.
 #   env: RES=3840x2160  SETTLE=6  NOCTALIA=/bundle/noctalia
-#   /cfg   -> NOCTALIA_CONFIG_HOME (contains config.toml)
+#   /xdg/config/noctalia -> your config dir (contains config.toml)
 #   /steps -> optional steps file (see README)
 set -uo pipefail
 
@@ -18,9 +18,12 @@ export WLR_BACKENDS=headless
 export WLR_RENDERER=pixman
 export WLR_LIBINPUT_NO_DEVICES=1
 export LIBGL_ALWAYS_SOFTWARE=1
-export NOCTALIA_CONFIG_HOME=/cfg
-export NOCTALIA_STATE_HOME=/tmp/noctalia-state
-mkdir -p "$NOCTALIA_STATE_HOME"
+# Noctalia appends "/noctalia" to these, so /cfg is mounted at /xdg/config/noctalia.
+export NOCTALIA_CONFIG_HOME=/xdg/config
+export NOCTALIA_STATE_HOME=/tmp/state
+mkdir -p "$NOCTALIA_STATE_HOME/noctalia"
+# Skip the first-run wizard (it only checks for this marker in the state dir).
+touch "$NOCTALIA_STATE_HOME/noctalia/.setup-complete"
 
 # A session bus, so D-Bus services Noctalia expects can at least connect.
 eval "$(dbus-launch --sh-syntax)"
@@ -41,7 +44,7 @@ export WAYLAND_DISPLAY
 export SWAYSOCK=$(ls "$XDG_RUNTIME_DIR"/sway-ipc.*.sock 2>/dev/null | head -1)
 
 status=0
-if [ -f /cfg/config.toml ]; then
+if [ -f /xdg/config/noctalia/config.toml ]; then
   "$NOCTALIA" config validate > "$OUT/validate.log" 2>&1 || { echo "config validate FAILED"; status=2; }
 fi
 
