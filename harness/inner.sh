@@ -72,20 +72,32 @@ sleep "$SETTLE"
 
 grim "$OUT/00-desktop.png"
 
-# Steps file: one line per step:  <name> <wait-seconds> <noctalia args...>
-# e.g.   launcher 2 msg panel-open launcher
-# After each screenshot the harness runs `msg panel-close`.
+# Steps file, one step per line:
+#   <name> <wait-seconds> <noctalia args...> [ | <cleanup noctalia args...> ]
+# Default cleanup is `msg panel-close`. Name `_` = run the command, no screenshot
+# (setup steps). Lines with `-` as cleanup skip cleanup. Commands run with `sh -c`
+# semantics for quoting, e.g.  toast 2 msg notification-show "Hello there"
+run() {  # run noctalia with a quoted arg string
+  eval "set -- $1"
+  "$NOCTALIA" "$@" >> "$OUT/ipc.log" 2>&1
+}
 if [ -f /steps ]; then
   n=1
-  while read -r name wait rest; do
-    [[ -z "$name" || "$name" == \#* ]] && continue
-    # shellcheck disable=SC2086
-    "$NOCTALIA" $rest >> "$OUT/ipc.log" 2>&1 || echo "step $name: ipc failed" >> "$OUT/ipc.log"
+  while IFS= read -r line; do
+    [[ -z "${line// }" || "$line" =~ ^[[:space:]]*# ]] && continue
+    read -r name wait rest <<< "$line"
+    cmd="${rest%%|*}"; cleanup="msg panel-close"
+    [[ "$rest" == *"|"* ]] && cleanup="${rest#*|}"
+    echo ">> $name: $cmd" >> "$OUT/ipc.log"
+    run "$cmd" || echo "step $name: ipc failed" >> "$OUT/ipc.log"
     sleep "$wait"
-    grim "$OUT/$(printf '%02d' $n)-$name.png"
-    "$NOCTALIA" msg panel-close >/dev/null 2>&1 || true
-    sleep 0.5
-    n=$((n + 1))
+    if [ "$name" != "_" ]; then
+      grim "$OUT/$(printf '%02d' $n)-$name.png"
+      n=$((n + 1))
+    fi
+    cleanup="$(echo "$cleanup" | xargs)"
+    [ "$cleanup" != "-" ] && { run "$cleanup" || true; }
+    sleep 0.7
   done < /steps
 fi
 
