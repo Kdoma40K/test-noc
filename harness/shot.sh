@@ -3,7 +3,7 @@
 #   ./shot.sh [config-dir] [out-dir] [steps-file]
 #   config-dir : folder with config.toml (default: Noctalia's stock example)
 #   out-dir    : where PNGs and logs land (default: ./out/<timestamp>)
-#   env RES=3840x2160 SETTLE=6 to override resolution / settle time
+#   env RES=3840x2160 SETTLE=3 READY_TIMEOUT=60 (see inner.sh)
 set -euo pipefail
 HERE="$(cd "$(dirname "$0")" && pwd)"
 BUNDLE="$HERE/../.bundle"
@@ -27,7 +27,7 @@ CFG="$(cd "$CFG" && pwd)"
 mkdir -p "$OUT"; OUT="$(cd "$OUT" && pwd)"; chmod 777 "$OUT"; chmod -R a+rwX "$CFG"
 
 args=(--rm --network host
-      -e RES="${RES:-3840x2160}" -e SETTLE="${SETTLE:-6}"
+      -e RES="${RES:-3840x2160}" -e SETTLE="${SETTLE:-3}" -e READY_TIMEOUT="${READY_TIMEOUT:-60}"
       -v "$BUNDLE":/bundle:ro -v "$CFG":/xdg/config/noctalia -v "$OUT":/out
       -v "$HERE/inner.sh":/inner.sh:ro)
 [ -n "$STEPS" ] && args+=(-v "$(cd "$(dirname "$STEPS")" && pwd)/$(basename "$STEPS")":/steps:ro)

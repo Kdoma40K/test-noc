@@ -32,8 +32,14 @@ Each run writes to `out/<timestamp>/` (or the folder you pass):
 | `noctalia.log` | Full shell log |
 | `errors.log` | Lines matching error/fatal/crit |
 | `sway.log` | Compositor log |
+| `status.json` | `noctalia msg status` at startup |
 
-Exit codes: `0` ok, `2` config validation failed, `3` Noctalia crashed or exited.
+Exit codes: `0` ok, `2` config validation failed, `3` Noctalia crashed or exited,
+`4` Noctalia never answered IPC, `5` a screenshot looks blank.
+
+Timing: the harness polls `noctalia msg status` until Noctalia answers (up to
+`READY_TIMEOUT`, 60 s), then waits `SETTLE` (3 s) for the first frame. Don't
+replace that with a fixed sleep: startup time varies a lot in a fresh container.
 
 Expected noise in `errors.log`: no system D-Bus, and failed downloads (plugin
 catalogs, palettes, currency rates), because the container is offline. Anything

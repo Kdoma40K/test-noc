@@ -1,13 +1,14 @@
 #!/usr/bin/env bash
 # Runs INSIDE the harness container. Starts headless sway, launches Noctalia,
 # runs optional IPC steps, and writes screenshots to /out.
-#   env: RES=3840x2160  SETTLE=6  NOCTALIA=/bundle/noctalia
+#   env: RES=3840x2160  SETTLE=3  READY_TIMEOUT=60  NOCTALIA=/bundle/noctalia
 #   /xdg/config/noctalia -> your config dir (contains config.toml)
 #   /steps -> optional steps file (see README)
 set -uo pipefail
 
 RES="${RES:-3840x2160}"
-SETTLE="${SETTLE:-6}"
+SETTLE="${SETTLE:-3}"          # seconds to draw after IPC is up
+READY_TIMEOUT="${READY_TIMEOUT:-60}"
 NOCTALIA="${NOCTALIA:-/bundle/noctalia}"
 OUT=/out
 mkdir -p "$OUT"
@@ -50,13 +51,24 @@ fi
 
 "$NOCTALIA" > "$OUT/noctalia.log" 2>&1 &
 NPID=$!
-sleep "$SETTLE"
 
-if ! kill -0 "$NPID" 2>/dev/null; then
-  echo "noctalia exited early (crash or config error), see noctalia.log"
-  tail -30 "$OUT/noctalia.log"
-  exit 3
+# Wait until Noctalia answers IPC (not a fixed sleep: startup time varies a lot
+# with cold caches and software rendering), then give it SETTLE s to draw.
+ready=0
+for _ in $(seq "$((READY_TIMEOUT * 2))"); do
+  if ! kill -0 "$NPID" 2>/dev/null; then
+    echo "noctalia exited early (crash or config error), see noctalia.log"
+    tail -30 "$OUT/noctalia.log"
+    exit 3
+  fi
+  if "$NOCTALIA" msg status > "$OUT/status.json" 2>/dev/null; then ready=1; break; fi
+  sleep 0.5
+done
+if [ "$ready" != 1 ]; then
+  echo "noctalia did not answer IPC within ${READY_TIMEOUT}s, see noctalia.log"
+  exit 4
 fi
+sleep "$SETTLE"
 
 grim "$OUT/00-desktop.png"
 
@@ -79,5 +91,13 @@ fi
 
 grep -iE "error|fatal|crit" "$OUT/noctalia.log" > "$OUT/errors.log" || true
 kill "$NPID" 2>/dev/null
-echo "OK: $(ls "$OUT"/*.png | wc -l) screenshot(s), $(wc -l < "$OUT/errors.log") error line(s) in log"
+# A frame with nothing but sway's flat background compresses to a few KB.
+blank=0
+for f in "$OUT"/*.png; do
+  if [ "$(stat -c %s "$f")" -lt 30000 ]; then
+    echo "WARN: $(basename "$f") looks blank (Noctalia not drawn yet?)"; blank=$((blank + 1))
+  fi
+done
+[ "$blank" -gt 0 ] && [ "$status" = 0 ] && status=5
+echo "DONE: $(ls "$OUT"/*.png | wc -l) screenshot(s), $blank blank, $(wc -l < "$OUT/errors.log") error line(s) in log"
 exit $status
