@@ -10,7 +10,7 @@ high_contrast         = false
 
 [shell]
 corner_radius_scale   = 1.0          # 0 = square, 1 = default, 2 = extra rounded
-font_family           = "sans-serif"
+font_family           = "IBM Plex Mono"   # nasa-punk: fonts/ → ~/.local/share/fonts
 time_format           = "{:%H:%M}"  # default shell UI time format
 date_format           = "%A, %x"    # default shell UI date format
 offline_mode          = false        # block all outgoing HTTP when true
@@ -162,8 +162,9 @@ recursive                  = true    # include subdirectories when picking rando
 
 [theme]
 mode   = "dark"                     # dark | light | auto
-source = "builtin"                  # builtin | wallpaper | community
-builtin = "Noctalia"                # Ayu | Catppuccin | Dracula | Eldritch | Gruvbox |
+source = "custom"                   # nasa-punk: palettes/nasapunk.json
+custom_palette = "nasapunk"
+builtin = "Noctalia"               # Ayu | Catppuccin | Dracula | Eldritch | Gruvbox |
                                     # Kanagawa | Noctalia | Nord | Rosé Pine | Tokyo-Night
 # community_palette = "Noctalia"    # fetched from api.noctalia.dev, cached locally
 # wallpaper_scheme  = "m3-content"  # m3-tonal-spot | m3-content | m3-fruit-salad |

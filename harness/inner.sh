@@ -26,6 +26,9 @@ mkdir -p "$NOCTALIA_STATE_HOME/noctalia"
 # Skip the first-run wizard (it only checks for this marker in the state dir).
 touch "$NOCTALIA_STATE_HOME/noctalia/.setup-complete"
 
+# Pick up theme fonts mounted by shot.sh.
+[ -d /usr/local/share/fonts/theme ] && fc-cache -f /usr/local/share/fonts > /dev/null 2>&1
+
 # A session bus, so D-Bus services Noctalia expects can at least connect.
 eval "$(dbus-launch --sh-syntax)"
 
