@@ -1,0 +1,71 @@
+# Full UI tour, for baseline screenshots before theme changes.
+# name                   wait  noctalia args                                   | cleanup
+#
+# ── Launcher ───────────────────────────────────────────────────────────────────
+launcher                 2     msg panel-open launcher
+launcher-calc            2     msg panel-open launcher "12*7"
+launcher-commands        2     msg panel-open launcher "/"
+#
+# ── Control center tabs ────────────────────────────────────────────────────────
+# (power, weather, screen-time are hidden here: no battery, location or tracking)
+cc-home                  2     msg panel-open control-center home
+cc-media                 2     msg panel-open control-center media
+cc-audio                 2     msg panel-open control-center audio
+cc-monitor               2     msg panel-open control-center monitor
+cc-system                2     msg panel-open control-center system
+cc-network               2     msg panel-open control-center network
+cc-bluetooth             2     msg panel-open control-center bluetooth
+cc-calendar              2     msg panel-open control-center calendar
+#
+# ── Other panels ───────────────────────────────────────────────────────────────
+session                  2     msg panel-open session
+wallpaper                2     msg panel-open wallpaper
+_                        0.5   msg clipboard-copy "Mission elapsed time 00:42:17"  | -
+_                        0.5   msg clipboard-copy "DSS-14 → Voyager 1, X-band"     | -
+clipboard                2     msg panel-open clipboard
+#
+# ── Notifications, OSD ─────────────────────────────────────────────────────────
+toast                    2     msg notification-show "Update radar: 12 packages pending" | -
+toast-stack              2     msg notification-show "Arch news: manual intervention required" | msg notification-clear-active
+cc-notifications         2     msg panel-open control-center notifications
+osd-volume               1     msg osd-show volume 72                           | -
+_                        2     msg osd-disable                                  | msg osd-enable
+osd-brightness           1     msg brightness-osd 40                            | -
+_                        2     msg osd-disable                                  | msg osd-enable
+#
+# (dock and desktop widgets skipped: nothing to show without running apps / widgets)
+#
+# ── Settings window, every sidebar page (ids from settings_registry.cpp) ──────
+settings-appearance           3     msg settings-open appearance             | msg settings-close
+settings-wallpaper            3     msg settings-open wallpaper              | msg settings-close
+settings-templates            3     msg settings-open templates              | msg settings-close
+settings-desktop              3     msg settings-open desktop                | msg settings-close
+settings-lock-screen          3     msg settings-open lock-screen            | msg settings-close
+settings-dock                 3     msg settings-open dock                   | msg settings-close
+settings-panels               3     msg settings-open panels                 | msg settings-close
+settings-bar                  3     msg settings-open bar                    | msg settings-close
+settings-launcher             3     msg settings-open launcher               | msg settings-close
+settings-control-center       3     msg settings-open control-center         | msg settings-close
+settings-notifications        3     msg settings-open notifications          | msg settings-close
+settings-osd                  3     msg settings-open osd                    | msg settings-close
+settings-screenshot           3     msg settings-open screenshot             | msg settings-close
+settings-shell                3     msg settings-open shell                  | msg settings-close
+settings-keybinds             3     msg settings-open keybinds               | msg settings-close
+settings-security             3     msg settings-open security               | msg settings-close
+settings-system               3     msg settings-open system                 | msg settings-close
+settings-services             3     msg settings-open services               | msg settings-close
+settings-location             3     msg settings-open location               | msg settings-close
+settings-calendar             3     msg settings-open calendar               | msg settings-close
+settings-power                3     msg settings-open power                  | msg settings-close
+settings-hooks                3     msg settings-open hooks                  | msg settings-close
+settings-plugins              3     msg settings-open plugins                | msg settings-close
+#
+# ── Light mode: same key surfaces ──────────────────────────────────────────────
+_                        3     msg theme-mode-set light                         | -
+light-desktop            1     msg status                                       | -
+light-launcher           2     msg panel-open launcher
+light-cc-home            2     msg panel-open control-center home
+light-session            2     msg panel-open session
+light-settings-appearance 3    msg settings-open appearance                         | msg settings-close
+light-toast              2     msg notification-show "Update radar: 12 packages pending" | msg notification-clear-active
+light-lock               10    msg session lock                                 | -

@@ -1,0 +1,7 @@
+# name            wait  noctalia args
+launcher          2     msg panel-open launcher
+control-center    2     msg panel-open control-center
+session           2     msg panel-open session
+wallpaper         2     msg panel-open wallpaper
+# Lock goes last: the harness can't unlock it. Software rendering is slow, hence 10 s.
+lock              10    msg session lock
