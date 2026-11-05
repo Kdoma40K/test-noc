@@ -10,7 +10,7 @@ high_contrast         = false
 
 [shell]
 corner_radius_scale   = 1.0          # 0 = square, 1 = default, 2 = extra rounded
-font_family           = "IBM Plex Mono"   # nasa-punk: fonts/ → ~/.local/share/fonts
+font_family           = "Departure Mono"  # nasa-punk: fonts/ → ~/.local/share/fonts
 time_format           = "{:%H:%M}"  # default shell UI time format
 date_format           = "%A, %x"    # default shell UI date format
 offline_mode          = false        # block all outgoing HTTP when true
@@ -175,7 +175,7 @@ pure_black_dark = false             # anchor dark surfaces to true black (OLED);
 
 [theme.templates]
 enable_builtin_templates            = true
-builtin_ids                = []     # opt-in; list ids with: noctalia theme --list-templates
+builtin_ids                = ["foot"] # nasa-punk: themes foot from the palette; opt-in; list ids with: noctalia theme --list-templates
 enable_community_templates = true
 community_ids              = []     # fetched from api.noctalia.dev/templates, cached locally
 
@@ -302,6 +302,7 @@ default_lead_minutes = 10       # used for events with no reminder of their own;
 all_day_digest_time  = "09:00"  # one notification listing today's all-day events; "" disables it
 
 [control_center]
+width                       = 780           # nasa-punk: default 700; wider tiles so mono labels ("Night Light") fit
 circular_avatar             = true          # disable to use the shell's corner roundness
 show_avatar_border          = true          # disable to hide the accent ring around the avatar
 

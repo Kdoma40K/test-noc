@@ -30,6 +30,13 @@ RUN cat /tmp/proxy-ca.crt >> /etc/ssl/certs/ca-certificates.crt \
  && rm -f /etc/apt/apt.conf.d/90proxy \
  && rm -rf /var/lib/apt/lists/*
 
+# Terminal shots: foot (Kunu's terminal) running fish (his login shell).
+RUN if [ -n "$HTTPS_PROXY" ]; then echo "Acquire::https::Proxy \"$HTTPS_PROXY\";" > /etc/apt/apt.conf.d/90proxy; fi \
+ && apt-get update -qq \
+ && apt-get install -y -qq --no-install-recommends foot fish \
+ && rm -f /etc/apt/apt.conf.d/90proxy \
+ && rm -rf /var/lib/apt/lists/*
+
 ENV CC=gcc-16 CXX=g++-16
 RUN useradd -m -s /bin/bash tester
 USER tester

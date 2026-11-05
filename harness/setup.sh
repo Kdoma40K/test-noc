@@ -52,7 +52,10 @@ if ! sudo docker image inspect noctalia-base:26.04 >/dev/null 2>&1; then
 fi
 
 # 3. Harness image: build deps + sway + grim + Mesa (software GL).
-if ! sudo docker image inspect noctalia-harness >/dev/null 2>&1; then
+# Rebuild when the Dockerfile changed since the image was built (cached layers keep it quick).
+DF_SHA="$(sha256sum "$HERE/Dockerfile" | cut -c1-16)"
+IMG_SHA="$(sudo docker image inspect -f '{{index .Config.Labels "dockerfile"}}' noctalia-harness 2>/dev/null || true)"
+if [ "$IMG_SHA" != "$DF_SHA" ]; then
   echo "== building harness image"
   if [ -f /root/.ccr/ca-bundle.crt ] || sudo test -f /root/.ccr/ca-bundle.crt; then
     sudo cp /root/.ccr/ca-bundle.crt "$HERE/ca-bundle.crt"
@@ -61,7 +64,7 @@ if ! sudo docker image inspect noctalia-harness >/dev/null 2>&1; then
   fi
   sudo chmod 644 "$HERE/ca-bundle.crt"
   sudo docker build --network host --build-arg HTTPS_PROXY="${HTTPS_PROXY:-}" \
-    -t noctalia-harness "$HERE"
+    --label dockerfile="$DF_SHA" -t noctalia-harness "$HERE"
 fi
 
 # 4. Pick the Noctalia commit to use.
