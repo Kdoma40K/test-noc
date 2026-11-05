@@ -66,9 +66,14 @@ Noctalia commit: `noctalia-bundle-<sha12>.tar.gz`.
 `NOCTALIA_REF=<tag|branch|sha>` overrides the pin for one run,
 `NOCTALIA_REPO=<url>` builds a fork, `FORCE_BUILD=1` skips the cache.
 
+⚠️ **No accidental compiles:** if there's no cached bundle for the requested commit,
+`setup.sh` stops in seconds with a message instead of compiling. Pass
+`ALLOW_BUILD=1` when you really mean to build (e.g. upgrading Noctalia).
+Never delete the `bundle-cache` branch.
+
 ### Upgrading Noctalia
 
-1. `NOCTALIA_REF=<new tag or sha> ./setup.sh` (builds, since it isn't cached).
+1. `ALLOW_BUILD=1 NOCTALIA_REF=<new tag or sha> ./setup.sh` (builds, since it isn't cached).
 2. Check it with `./shot.sh`.
 3. Put the new commit in `NOCTALIA_COMMIT` and commit that.
 4. Cache the tarball setup.sh left in `harness/`:

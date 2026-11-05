@@ -1,9 +1,12 @@
 #!/usr/bin/env bash
 # One-time-per-session setup for the Noctalia test harness (Claude cloud workspace,
 # or any Ubuntu/Debian box with Docker). Idempotent: skips steps already done.
-#   ./setup.sh            build image + clone + build Noctalia (release)
+#   ./setup.sh            build images + unpack the cached Noctalia bundle
 #   NOCTALIA_REF=<ref>    tag/branch/commit to use (default: the commit pinned in NOCTALIA_COMMIT)
 #   NOCTALIA_REPO=<url>   build your fork instead of upstream
+#   ALLOW_BUILD=1         allow compiling Noctalia when no cached bundle exists
+#                         (~48 min on Claude's 2-CPU workspace; refused without it)
+#   FORCE_BUILD=1         ignore the cache and compile (implies ALLOW_BUILD)
 set -euo pipefail
 HERE="$(cd "$(dirname "$0")" && pwd)"
 SRC="${NOCTALIA_SRC:-$HERE/../.noctalia}"
@@ -11,6 +14,21 @@ BUNDLE="$HERE/../.bundle"
 REPO="${NOCTALIA_REPO:-https://github.com/noctalia-dev/noctalia.git}"
 REF="${NOCTALIA_REF:-$(cat "$HERE/NOCTALIA_COMMIT")}"
 SUITE=resolute   # Ubuntu 26.04: has wireplumber 0.5 + new sdbus-c++ (24.04 is too old)
+
+# 0. Pre-flight: make sure we won't fall into a long compile by accident.
+#    Runs before anything slow, so a refusal costs seconds, not minutes.
+PRE_SHA="$(git ls-remote "$REPO" "$REF" | head -1 | cut -f1)"; PRE_SHA="${PRE_SHA:-$REF}"
+PRE_ASSET="noctalia-bundle-${PRE_SHA:0:12}.tar.gz"
+if [ -z "${FORCE_BUILD:-}" ] && [ -z "${ALLOW_BUILD:-}" ] \
+   && [ "$(cat "$BUNDLE/COMMIT" 2>/dev/null)" != "$PRE_SHA" ]; then
+  if ! { git -C "$HERE" fetch --quiet --depth 1 origin bundle-cache 2>/dev/null \
+         && git -C "$HERE" cat-file -e "FETCH_HEAD:$PRE_ASSET" 2>/dev/null; }; then
+    echo "!! No cached bundle for Noctalia ${PRE_SHA:0:12} on the bundle-cache branch."
+    echo "!! Building it takes ~48 min here. Refusing without ALLOW_BUILD=1."
+    echo "!! Usual causes: NOCTALIA_COMMIT or NOCTALIA_REF changed, or bundle-cache was deleted."
+    exit 1
+  fi
+fi
 
 # 1. Docker daemon. In Claude's cloud workspace it isn't running and must
 #    use the agent proxy for downloads.
