@@ -1,0 +1,9 @@
+# Theme review set at 4K: panels, toast, terminal, lock. Waits sized for 4K software rendering.
+# name            wait  noctalia args (or `!` shell command)
+launcher          3     msg panel-open launcher
+control-center    3     msg panel-open control-center
+session           3     msg panel-open session
+toast             3     msg notification-show "Update radar: 12 packages pending" | msg notification-clear-active
+terminal          8     ! bash /term/foot.sh | ! pkill -x foot
+# Lock goes last: the harness can't unlock it.
+lock              25    msg session lock

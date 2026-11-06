@@ -29,7 +29,9 @@ mkdir -p "$OUT"; OUT="$(cd "$OUT" && pwd)"; chmod 777 "$OUT"; chmod -R a+rwX "$C
 args=(--rm --network host
       -e RES="${RES:-3840x2160}" -e SETTLE="${SETTLE:-3}" -e READY_TIMEOUT="${READY_TIMEOUT:-60}"
       -v "$BUNDLE":/bundle:ro -v "$CFG":/xdg/config/noctalia -v "$OUT":/out
-      -v "$HERE/inner.sh":/inner.sh:ro)
+      -v "$HERE/inner.sh":/inner.sh:ro -v "$HERE/term":/term:ro)
+# Theme fonts (config-dir/fonts) stand in for ~/.local/share/fonts on the PC.
+[ -d "$CFG/fonts" ] && args+=(-v "$CFG/fonts":/usr/local/share/fonts/theme:ro)
 [ -n "$STEPS" ] && args+=(-v "$(cd "$(dirname "$STEPS")" && pwd)/$(basename "$STEPS")":/steps:ro)
 
 sudo docker run "${args[@]}" noctalia-harness bash /inner.sh

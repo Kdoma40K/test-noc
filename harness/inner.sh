@@ -26,12 +26,17 @@ mkdir -p "$NOCTALIA_STATE_HOME/noctalia"
 # Skip the first-run wizard (it only checks for this marker in the state dir).
 touch "$NOCTALIA_STATE_HOME/noctalia/.setup-complete"
 
+# Pick up theme fonts mounted by shot.sh.
+[ -d /usr/local/share/fonts/theme ] && fc-cache -f /usr/local/share/fonts > /dev/null 2>&1
+
 # A session bus, so D-Bus services Noctalia expects can at least connect.
 eval "$(dbus-launch --sh-syntax)"
 
 cat > /tmp/sway.conf <<EOF
 output HEADLESS-1 resolution $RES position 0 0 scale 1 bg #3a3d40 solid_color
 default_border none
+# Terminal shots: a centred floating window, not a full-screen tile.
+for_window [app_id="foot"] floating enable, resize set 55 ppt 62 ppt, move position center
 EOF
 
 sway -c /tmp/sway.conf > "$OUT/sway.log" 2>&1 &
@@ -77,7 +82,14 @@ grim "$OUT/00-desktop.png"
 # Default cleanup is `msg panel-close`. Name `_` = run the command, no screenshot
 # (setup steps). Lines with `-` as cleanup skip cleanup. Commands run with `sh -c`
 # semantics for quoting, e.g.  toast 2 msg notification-show "Hello there"
-run() {  # run noctalia with a quoted arg string
+# A command starting with `!` runs as a shell command instead of noctalia args,
+# e.g.  terminal 6 ! foot -e fish /xdg/config/noctalia/foot/demo.fish | ! pkill foot
+run() {  # run noctalia (or `!` shell) with a quoted arg string
+  local c="${1#"${1%%[![:space:]]*}"}"
+  if [[ "$c" == '!'* ]]; then
+    ( eval "${c#!}" ) >> "$OUT/ipc.log" 2>&1 &
+    return 0
+  fi
   eval "set -- $1"
   "$NOCTALIA" "$@" >> "$OUT/ipc.log" 2>&1
 }
