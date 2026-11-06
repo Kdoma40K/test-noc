@@ -63,7 +63,7 @@ direction = "down"                  # center, up, down, left, right, up_left, up
 alpha     = 0.55                    # multiplied by each component's background opacity
 
 [shell.panel]
-transparency_mode     = "solid"     # solid | soft | glass; controls floating-panel opacity and card translucency
+transparency_mode     = "soft"      # nasa-punk: soft; diffusion comes from Hyprland blur; solid | soft | glass; controls floating-panel opacity and card translucency
 borders               = true        # panel shell outline and in-panel section cards
 border_color          = "outline_variant"   # floating panel outline color: theme role token or #RRGGBB
 border_width          = 1.0         # floating panel outline width in px, 0 hides the stroke
@@ -413,7 +413,7 @@ delete   = ["del"]
 [bar.main]
 position           = "top"          # top | bottom | left | right
 thickness          = 34
-background_opacity = 1.0
+background_opacity = 0.85           # nasa-punk: soft
 compositor_blur    = true          # false stops compositor blur for this bar
 radius             = 12
 margin_ends        = 180
