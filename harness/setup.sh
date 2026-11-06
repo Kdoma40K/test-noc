@@ -43,7 +43,7 @@ fi
 #    Ubuntu archive with debootstrap and import it.
 if ! sudo docker image inspect noctalia-base:26.04 >/dev/null 2>&1; then
   echo "== bootstrapping Ubuntu 26.04 base image"
-  command -v debootstrap >/dev/null || sudo apt-get install -y -qq debootstrap
+  command -v debootstrap >/dev/null || { sudo apt-get update -qq; sudo apt-get install -y -qq -o Acquire::Retries=5 debootstrap; }
   [ -e /usr/share/debootstrap/scripts/$SUITE ] || sudo ln -s gutsy /usr/share/debootstrap/scripts/$SUITE
   sudo rm -rf "$HERE/rootfs"
   sudo debootstrap --variant=minbase --components=main,universe $SUITE "$HERE/rootfs" https://archive.ubuntu.com/ubuntu

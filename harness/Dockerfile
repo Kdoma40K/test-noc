@@ -10,6 +10,7 @@ RUN cat /tmp/proxy-ca.crt >> /etc/ssl/certs/ca-certificates.crt \
  && echo 'deb https://archive.ubuntu.com/ubuntu resolute main universe' > /etc/apt/sources.list \
  && echo 'deb https://archive.ubuntu.com/ubuntu resolute-updates main universe' >> /etc/apt/sources.list \
  && if [ -n "$HTTPS_PROXY" ]; then echo "Acquire::https::Proxy \"$HTTPS_PROXY\";" > /etc/apt/apt.conf.d/90proxy; fi \
+ && echo "Acquire::Retries \"5\";" > /etc/apt/apt.conf.d/80retries \
  && apt-get update -qq \
  && apt-get install -y -qq --no-install-recommends \
       git ca-certificates meson ninja-build g++-16 just pkg-config \
