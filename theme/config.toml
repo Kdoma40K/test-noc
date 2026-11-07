@@ -63,13 +63,13 @@ direction = "down"                  # center, up, down, left, right, up_left, up
 alpha     = 0.55                    # multiplied by each component's background opacity
 
 [shell.panel]
-transparency_mode     = "soft"      # nasa-punk: soft; diffusion comes from Hyprland blur; solid | soft | glass; controls floating-panel opacity and card translucency
+transparency_mode     = "glass"     # nasa-punk rev 2.4: frosted glass, 55 % panels; diffusion from Hyprland blur
 borders               = true        # panel shell outline and in-panel section cards
-border_color          = "outline_variant"   # floating panel outline color: theme role token or #RRGGBB
+border_color          = "#FFFFFF38"  # nasa-punk: 1 px light edge (white ~22 %)
 border_width          = 1.0         # floating panel outline width in px, 0 hides the stroke
 shadow                = true        # cast the global [shell.shadow] from panel surfaces
-launcher_placement       = "floating" # attached | floating
-clipboard_placement      = "floating" # attached | floating
+launcher_placement       = "attached" # nasa-punk: hangs under the bar center
+clipboard_placement      = "attached" # nasa-punk
 control_center_placement = "attached" # attached | floating
 wallpaper_placement      = "attached" # attached | floating
 session_placement        = "attached" # attached | floating
@@ -95,7 +95,7 @@ show_session_button = true               # show the session-actions shortcut bes
 show_icons    = true                    # show application icons in launcher results
 show_app_origin_indicator = true        # show package origin indicators on application results
 compact       = false                   # use smaller icons and tighter result rows
-app_grid      = false                   # show grid-capable providers and the provider overview as icon grids
+app_grid      = true                    # nasa-punk: app grid
 track_usage   = true                    # record launcher history for Recent and usage-based sorting
 sort_by_usage = true                    # boost frequently used results
 ignore_mouse  = false                   # ignore mouse hover and clicks inside the launcher
@@ -195,6 +195,7 @@ tint_intensity         = 0.3        # 0.0 = no tint, 1.0 = opaque
 # ── Notifications ─────────────────────────────────────────────────────────────
 
 [notification]
+position           = "top_center"   # nasa-punk: under the bar
 colorize_icons = false             # tint app icons only; notification content images keep their colors
 enable_daemon      = true
 show_app_name      = true
@@ -203,9 +204,9 @@ keep_dismissed_in_history = true    # set false to remove history entries when t
 group_by_app       = true           # group notifications by application in the history tab
 layer              = "top"          # top | overlay
 scale              = 1.0            # notification size multiplier applied on top of accessibility.ui_scale
-background_opacity = 0.97
+background_opacity = 0.62           # nasa-punk: glass toast
 border             = true           # outline around toast cards; set false for a borderless look
-border_color       = "outline_variant"      # outline color: theme color role (e.g. "primary") or hex (e.g. "#a8b185")
+border_color       = "#FFFFFF38"            # nasa-punk; outline color: theme color role (e.g. "primary") or hex (e.g. "#a8b185")
 border_width       = 1              # outline stroke width in px; raise for a thicker outline
 follow_focused_output = false       # show new toasts on the focused output; visible toasts stay pinned there
 # monitors          = ["DP-1"]      # connector names; omit or leave empty for all monitors
@@ -227,14 +228,14 @@ offset_y           = 8              # absolute vertical margin from the screen e
 # ── OSD ───────────────────────────────────────────────────────────────────────
 
 [osd]
-position = "top_right"              # top_right | top_left | top_center | bottom_right | bottom_left | bottom_center | center_right | center_left | center
+position = "top_center"             # nasa-punk; top_right | top_left | top_center | bottom_right | bottom_left | bottom_center | center_right | center_left | center
 position_vertical = "top_center"    # same options; used when orientation = "vertical"
 orientation = "horizontal"          # horizontal | vertical (volume/brightness sliders only; text popups stay horizontal)
 hide_delay_ms = 1400                # time before a popup starts hiding; range 250 to 10000 ms
 scale = 1.0                         # OSD size multiplier applied on top of accessibility.ui_scale
-background_opacity = 0.97           # background opacity of OSD popups
+background_opacity = 0.62           # nasa-punk: glass
 border = true                       # outline around OSD popup cards; set false for a borderless look
-border_color = "outline_variant"            # outline color: theme color role (e.g. "primary") or hex (e.g. "#a8b185")
+border_color = "#FFFFFF38"                 # nasa-punk; outline color: theme color role (e.g. "primary") or hex (e.g. "#a8b185")
 border_width = 1                    # outline stroke width in px; raise for a thicker outline
 follow_focused_output = false       # show a new OSD on the focused output; keep it pinned until it disappears
 offset_x = 20                       # absolute horizontal margin from the screen edge
@@ -413,7 +414,7 @@ delete   = ["del"]
 [bar.main]
 position           = "top"          # top | bottom | left | right
 thickness          = 34
-background_opacity = 0.85           # nasa-punk: soft
+background_opacity = 0.55           # nasa-punk rev 2.4: glass bar
 compositor_blur    = true          # false stops compositor blur for this bar
 radius             = 12
 margin_ends        = 180

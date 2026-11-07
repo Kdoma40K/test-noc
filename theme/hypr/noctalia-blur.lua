@@ -13,7 +13,7 @@ hl.config({
       xray = true,        -- blur only the wallpaper, not windows behind: same look everywhere
       size = 8,           -- docs: 3. Kernel radius; the main "diffusion" knob
       passes = 3,         -- docs: 2. Smoother falloff; each pass costs GPU time
-      noise = 0.02,       -- light grain so the frost reads as a material, not a smear
+      noise = 0.0,        -- rev 2.4: clean blur, no grain (A/B round 6)
       contrast = 0.9,     -- slightly flatter so labels on top stay legible
       brightness = 0.85,  -- darker frost for the graphite surfaces
       vibrancy = 0.1696,
