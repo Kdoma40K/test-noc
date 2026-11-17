@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build Noctalia's asset override: UPPERCASE shell labels + NASA wording.
+"""Build Noctalia's asset override: UPPERCASE shell labels + telemetry wording.
 
 Copies Noctalia's installed assets, rewrites translations/en.json, and writes the
 result where NOCTALIA_ASSETS_DIR points. Run it before every Noctalia start so new
@@ -10,7 +10,7 @@ upstream strings are always present (a stale copy would show raw keys).
                    placeholders keep their case and no word swaps apply there
                    (default: Settings stays sentence case)
   SRC default: first of /usr/share/noctalia/assets, /usr/local/share/noctalia/assets
-  DST default: ~/.local/share/noctalia-nasapunk/assets
+  DST default: ~/.local/share/noctalia-frosted/assets
 """
 import json
 import re
@@ -60,7 +60,7 @@ def main() -> int:
     if src is None:
         print("build_assets: Noctalia assets not found; tried " + ", ".join(map(str, candidates)), file=sys.stderr)
         return 1
-    dst = Path(args[1]) if len(args) > 1 else Path.home() / ".local/share/noctalia-nasapunk/assets"
+    dst = Path(args[1]) if len(args) > 1 else Path.home() / ".local/share/noctalia-frosted/assets"
     tmp = dst.with_name(dst.name + ".tmp")
     shutil.rmtree(tmp, ignore_errors=True)
     shutil.copytree(src, tmp)

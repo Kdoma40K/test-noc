@@ -1,0 +1,40 @@
+# Frosted telemetry: quick settings + a curated settings panel, both attached under the bar.
+# Specs (Arch Rice project): claude/spec-quick-settings.md, claude/spec-frosted-settings.md.
+#   noctalia msg panel-toggle kunu/telemetry:quick
+#   noctalia msg panel-toggle kunu/telemetry:settings
+
+id           = "kunu/telemetry"
+name         = "Frosted Telemetry"
+version      = "0.2.0"
+plugin_api   = 46          # panel-content-height (42), container color roles (43), GPU monitoring (46)
+author       = "kunu"
+license      = "MIT"
+icon         = "adjustments-horizontal"
+description  = "Bracket-toggle quick settings and a curated settings panel in the frosted telemetry style."
+dependencies = ["networkmanager", "bluez-utils", "wireplumber"]
+
+[[panel]]
+id         = "quick"
+entry      = "quick.luau"
+width      = 380
+height     = "content"
+max_height = 640
+placement  = "attached"
+position   = "auto"
+
+[[panel]]
+id         = "settings"
+entry      = "settings.luau"
+width      = 380
+height     = "content"
+max_height = 680
+placement  = "attached"
+position   = "auto"
+
+[[widget]]
+id    = "sys"
+entry = "widget.luau"
+
+[[widget]]
+id    = "cfg"
+entry = "cfg-widget.luau"

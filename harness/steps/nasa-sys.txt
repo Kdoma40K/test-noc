@@ -1,7 +1,0 @@
-# NASA-SYS plugin panel. Waits leave time for the async tool reads at 4K.
-# Run with PATH_PREPEND=/term/fixtures/full (stub tools) or /term/fixtures/min (only noctalia on PATH).
-# name            wait  noctalia args (or `!` shell command)
-panel             5     msg panel-open kunu/nasa-sys:panel | -
-panel-net         5     msg plugin kunu/nasa-sys:panel all expand-net | -
-_                 1     msg notification-dnd-toggle | -
-panel-quiet       6     msg plugin kunu/nasa-sys:panel all collapse-net | msg panel-close
