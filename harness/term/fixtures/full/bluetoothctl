@@ -1,0 +1,7 @@
+#!/bin/sh
+# Test fixture (harness only): canned bluez answers.
+case "$*" in
+  "show") printf 'Controller AA:BB:CC:DD:EE:FF\n\tPowered: yes\n' ;;
+  "devices Connected") printf 'Device 11:22:33:44:55:66 WH-1000XM5\nDevice 77:88:99:AA:BB:CC MX Master 3S\n' ;;
+  *) ;;
+esac
