@@ -1,0 +1,3 @@
+#!/bin/sh
+# Test fixture: puts the bundled Noctalia binary on PATH for plugin scripts.
+exec /bundle/noctalia "$@"

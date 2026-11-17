@@ -1,0 +1,25 @@
+# NASA-SYS: Kunu's control panel (spec: Arch Rice project, claude/spec-nasa-sys-panel.md).
+# Open it with: noctalia msg panel-toggle kunu/nasa-sys:panel
+
+id           = "kunu/nasa-sys"
+name         = "NASA-SYS"
+version      = "0.1.0"
+plugin_api   = 46          # panel-content-height (42), container color roles (43), GPU monitoring (46)
+author       = "kunu"
+license      = "MIT"
+icon         = "adjustments-horizontal"
+description  = "Bracket-toggle control panel: NET, BT LINK, QUIET, NIGHT, VOL, BRT, telemetry."
+dependencies = ["networkmanager", "bluez-utils", "wireplumber"]
+
+[[panel]]
+id         = "panel"
+entry      = "panel.luau"
+width      = 380
+height     = "content"
+max_height = 640
+placement  = "attached"
+position   = "auto"
+
+[[widget]]
+id    = "sys"
+entry = "widget.luau"

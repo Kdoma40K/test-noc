@@ -1,0 +1,9 @@
+#!/bin/sh
+# Test fixture (harness only): canned NetworkManager answers.
+case "$*" in
+  "radio wifi") echo enabled ;;
+  "radio wifi on"|"radio wifi off") ;;
+  *"dev wifi list"*) printf '*:HOME-5G:92\n :HOME-2G:71\n :NEIGHBOR\\:NET:38\n :CAFE GUEST:22\n' ;;
+  *"dev wifi connect"*) exit 1 ;;
+  *) exit 1 ;;
+esac

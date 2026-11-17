@@ -13,6 +13,7 @@ NOCTALIA="${NOCTALIA:-/bundle/noctalia}"
 OUT=/out
 mkdir -p "$OUT"
 
+[ -n "${PATH_PREPEND:-}" ] && export PATH="$PATH_PREPEND:$PATH"
 export XDG_RUNTIME_DIR=/tmp/xdg
 mkdir -p -m 700 "$XDG_RUNTIME_DIR"
 export WLR_BACKENDS=headless

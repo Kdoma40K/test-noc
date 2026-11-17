@@ -34,6 +34,8 @@ args=(--rm --network host
 [ -d "$CFG/fonts" ] && args+=(-v "$CFG/fonts":/usr/local/share/fonts/theme:ro)
 # Asset override (translations/templates), the same mechanism as NOCTALIA_ASSETS_DIR on the PC.
 [ -f "$CFG/assets/translations/en.json" ] && args+=(-e NOCTALIA_ASSETS_DIR=/xdg/config/noctalia/assets)
+# Test fixtures: PATH_PREPEND=/term/fixtures/<set> puts stub tools first on PATH inside the container.
+[ -n "${PATH_PREPEND:-}" ] && args+=(-e PATH_PREPEND="$PATH_PREPEND")
 [ -n "$STEPS" ] && args+=(-v "$(cd "$(dirname "$STEPS")" && pwd)/$(basename "$STEPS")":/steps:ro)
 
 sudo docker run "${args[@]}" noctalia-harness bash /inner.sh
