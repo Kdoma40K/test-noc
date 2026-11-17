@@ -1,0 +1,5 @@
+# Settings window readability (floating 1500x1100, centered). Panels wait for 4K software rendering.
+# name            wait  noctalia args
+appearance        4     msg settings-open appearance | -
+bar               3     msg settings-open bar | -
+control-center    3     msg settings-open control-center | msg settings-close

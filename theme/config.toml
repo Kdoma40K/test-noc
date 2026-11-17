@@ -24,7 +24,7 @@ password_style        = "default"    # default | random
 readline_shortcuts    = false        # readline-style shortcuts in every text field (Ctrl+A = line start)
 settings_show_advanced = true        # show advanced settings by default in Settings
 settings_expand_all_groups = false   # expand every group on Settings pages by default
-# settings_window_translucent = false  # translucent settings window background
+settings_window_translucent = true   # frosted telemetry: glass Settings window (harness: readable on all test wallpapers)
 show_location         = true         # hide weather location text in shell UI when false
 # app_icon_color      = "on_surface" # shared ColorSpec tint; enable colorize_icons per component
 clipboard_enabled     = true         # false disables clipboard panel, history, and compositor clipboard hooks

@@ -38,6 +38,8 @@ output HEADLESS-1 resolution $RES position 0 0 scale 1 bg #3a3d40 solid_color
 default_border none
 # Terminal shots: a centred floating window, not a full-screen tile.
 for_window [app_id="foot"] floating enable, resize set 55 ppt 62 ppt, move position center
+# Settings window: a normal-size floating window, as on a desktop (not a full-screen tile).
+for_window [app_id="dev.noctalia.Noctalia"] floating enable, resize set 1500 px 1100 px, move position center
 EOF
 
 sway -c /tmp/sway.conf > "$OUT/sway.log" 2>&1 &
