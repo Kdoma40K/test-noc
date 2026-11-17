@@ -162,12 +162,13 @@ recursive                  = true    # include subdirectories when picking rando
 
 [theme]
 mode   = "dark"                     # dark | light | auto
-source = "custom"                   # nasa-punk: palettes/nasapunk.json
+source = "wallpaper"                # nasa-punk rev 4: accent from the wallpaper (round 8 + harness run 1)
 custom_palette = "nasapunk"
 builtin = "Noctalia"               # Ayu | Catppuccin | Dracula | Eldritch | Gruvbox |
                                     # Kanagawa | Noctalia | Nord | Rosé Pine | Tokyo-Night
 # community_palette = "Noctalia"    # fetched from api.noctalia.dev, cached locally
-# wallpaper_scheme  = "m3-content"  # m3-tonal-spot | m3-content | m3-fruit-salad |
+wallpaper_scheme  = "m3-content"    # nasa-punk rev 4: picked; keeps M3 pale-pink error for alerts
+                                    # m3-tonal-spot | m3-content | m3-fruit-salad |
                                     # m3-rainbow | m3-monochrome | vibrant | faithful |
                                     # dysfunctional | muted
 pure_black_dark = false             # anchor dark surfaces to true black (OLED); applies to

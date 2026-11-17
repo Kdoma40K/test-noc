@@ -1,0 +1,6 @@
+# Rev 4 review set: wallpaper-derived accent, alert red, uppercase override. 4K waits.
+# name            wait  noctalia args (or `!` shell command)
+control-center    3     msg panel-open control-center
+toasts            4     ! bash /term/notify.sh | msg notification-clear-active
+launcher          3     msg panel-open launcher
+session           3     msg panel-open session
