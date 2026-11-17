@@ -1,0 +1,7 @@
+# Frosted telemetry quick settings panel. Waits leave time for the async tool reads at 4K.
+# Run with PATH_PREPEND=/term/fixtures/full (stub tools) or /term/fixtures/min (only noctalia on PATH).
+# name            wait  noctalia args (or `!` shell command)
+panel             5     msg panel-open kunu/telemetry:quick | -
+panel-net         5     msg plugin kunu/telemetry:quick all expand-net | -
+_                 1     msg notification-dnd-toggle | -
+panel-quiet       6     msg plugin kunu/telemetry:quick all collapse-net | msg panel-close

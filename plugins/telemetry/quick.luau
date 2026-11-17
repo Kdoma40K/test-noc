@@ -1,5 +1,5 @@
 --!nonstrict
--- NASA-SYS control panel (round 9 picks). Spec: claude/spec-nasa-sys-panel.md.
+-- Frosted telemetry quick settings panel (round 9 picks). Spec: claude/spec-quick-settings.md.
 --
 -- Data sources (never invented: unknown shows "--", missing tool shows "NO SIGNAL"):
 --   NET      nmcli radio wifi / nmcli dev wifi list / connect
@@ -253,7 +253,7 @@ local function header()
   return ui.column({ gap = 6 }, {
     ui.row({ align = "center" }, {
       label("SYS // CONTROL", ACC, { flexGrow = 1 }),
-      label("NP-01", DIM, { fontSize = SMALL }),
+      label("FT-01", DIM, { fontSize = SMALL }),
     }),
     ui.box({ height = 1, fill = "primary/0.7" }),
   })
@@ -338,9 +338,10 @@ local function telemetry()
 end
 
 local function dot(on)
-  if on == true then return ui.box({ width = 6, height = 6, radius = 1, fill = ACC }) end
-  if on == false then return ui.box({ width = 6, height = 6, radius = 1, border = DIM, borderWidth = 1 }) end
-  return ui.box({ width = 6, height = 6, radius = 1, fill = TRACK })
+  -- Retained controls keep old props, so every state sets fill and border explicitly.
+  local fill, border = TRACK, TRACK
+  if on == true then fill, border = ACC, ACC elseif on == false then fill, border = "#00000000", DIM end
+  return ui.box({ width = 6, height = 6, radius = 1, borderWidth = 1, fill = fill, border = border })
 end
 
 local function footer()
@@ -422,7 +423,7 @@ function update()
   if s.tick % POLL_EVERY == 0 then refreshAll() end
 end
 
--- noctalia msg plugin kunu/nasa-sys:panel all <event>
+-- noctalia msg plugin kunu/telemetry:quick all <event>
 function onIpc(event)
   if event == "expand-net" and s.open and not s.expanded then toggleExpand()
   elseif event == "collapse-net" and s.open and s.expanded then toggleExpand()

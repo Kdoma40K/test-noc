@@ -4,7 +4,7 @@ Noctalia reads every shell label from `translations/en.json` in its asset folder
 If `NOCTALIA_ASSETS_DIR` points at a folder that contains `translations/en.json`,
 Noctalia uses that folder instead of the installed one. `build_assets.py` makes
 such a folder: a full copy of the installed assets with UPPERCASE labels and the
-NASA wording (NET, BT LINK, QUIET, NIGHT, PWR...).
+telemetry wording (NET, BT LINK, QUIET, NIGHT, PWR...).
 
 `--settings-upper` (used below) also uppercases the Settings window's titles,
 labels and buttons, but keeps descriptions and placeholders in normal case and
@@ -32,7 +32,7 @@ inside your existing `hyprland.start` hook, replace the plain `noctalia` start w
 
 ```lua
 hl.on("hyprland.start", function()
-  hl.exec_cmd("sh -c '~/.local/bin/noctalia-build-assets --settings-upper; NOCTALIA_ASSETS_DIR=$HOME/.local/share/noctalia-nasapunk/assets exec noctalia'")
+  hl.exec_cmd("sh -c '~/.local/bin/noctalia-build-assets --settings-upper; NOCTALIA_ASSETS_DIR=$HOME/.local/share/noctalia-frosted/assets exec noctalia'")
 end)
 ```
 
@@ -54,7 +54,7 @@ remove the Hyprland autostart line, then add a drop-in (`systemctl --user edit n
 
 ```ini
 [Service]
-Environment=NOCTALIA_ASSETS_DIR=%h/.local/share/noctalia-nasapunk/assets
+Environment=NOCTALIA_ASSETS_DIR=%h/.local/share/noctalia-frosted/assets
 ExecStartPre=-%h/.local/bin/noctalia-build-assets --settings-upper
 ```
 

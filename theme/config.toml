@@ -10,7 +10,7 @@ high_contrast         = false
 
 [shell]
 corner_radius_scale   = 1.0          # 0 = square, 1 = default, 2 = extra rounded
-font_family           = "Departure Mono"  # nasa-punk: fonts/ → ~/.local/share/fonts
+font_family           = "Departure Mono"  # frosted telemetry: fonts/ → ~/.local/share/fonts
 time_format           = "{:%H:%M}"  # default shell UI time format
 date_format           = "%A, %x"    # default shell UI date format
 offline_mode          = false        # block all outgoing HTTP when true
@@ -63,13 +63,13 @@ direction = "down"                  # center, up, down, left, right, up_left, up
 alpha     = 0.55                    # multiplied by each component's background opacity
 
 [shell.panel]
-transparency_mode     = "glass"     # nasa-punk rev 2.4: frosted glass, 55 % panels; diffusion from Hyprland blur
+transparency_mode     = "glass"     # frosted telemetry: frosted glass, 55 % panels; diffusion from Hyprland blur
 borders               = true        # panel shell outline and in-panel section cards
-border_color          = "#FFFFFF38"  # nasa-punk: 1 px light edge (white ~22 %)
+border_color          = "#FFFFFF38"  # frosted telemetry: 1 px light edge (white ~22 %)
 border_width          = 1.0         # floating panel outline width in px, 0 hides the stroke
 shadow                = true        # cast the global [shell.shadow] from panel surfaces
-launcher_placement       = "attached" # nasa-punk: hangs under the bar center
-clipboard_placement      = "attached" # nasa-punk
+launcher_placement       = "attached" # frosted telemetry: hangs under the bar center
+clipboard_placement      = "attached" # frosted telemetry
 control_center_placement = "attached" # attached | floating
 wallpaper_placement      = "attached" # attached | floating
 session_placement        = "attached" # attached | floating
@@ -95,7 +95,7 @@ show_session_button = true               # show the session-actions shortcut bes
 show_icons    = true                    # show application icons in launcher results
 show_app_origin_indicator = true        # show package origin indicators on application results
 compact       = false                   # use smaller icons and tighter result rows
-app_grid      = true                    # nasa-punk: app grid
+app_grid      = true                    # frosted telemetry: app grid
 track_usage   = true                    # record launcher history for Recent and usage-based sorting
 sort_by_usage = true                    # boost frequently used results
 ignore_mouse  = false                   # ignore mouse hover and clicks inside the launcher
@@ -162,12 +162,12 @@ recursive                  = true    # include subdirectories when picking rando
 
 [theme]
 mode   = "dark"                     # dark | light | auto
-source = "wallpaper"                # nasa-punk rev 4: accent from the wallpaper (round 8 + harness run 1)
+source = "wallpaper"                # frosted telemetry: accent from the wallpaper (round 8 + harness run 1)
 custom_palette = "nasapunk"
 builtin = "Noctalia"               # Ayu | Catppuccin | Dracula | Eldritch | Gruvbox |
                                     # Kanagawa | Noctalia | Nord | Rosé Pine | Tokyo-Night
 # community_palette = "Noctalia"    # fetched from api.noctalia.dev, cached locally
-wallpaper_scheme  = "m3-content"    # nasa-punk rev 4: picked; keeps M3 pale-pink error for alerts
+wallpaper_scheme  = "m3-content"    # frosted telemetry: picked; keeps M3 pale-pink error for alerts
                                     # m3-tonal-spot | m3-content | m3-fruit-salad |
                                     # m3-rainbow | m3-monochrome | vibrant | faithful |
                                     # dysfunctional | muted
@@ -176,7 +176,7 @@ pure_black_dark = false             # anchor dark surfaces to true black (OLED);
 
 [theme.templates]
 enable_builtin_templates            = true
-builtin_ids                = ["foot"] # nasa-punk: themes foot from the palette; opt-in; list ids with: noctalia theme --list-templates
+builtin_ids                = ["foot"] # frosted telemetry: themes foot from the palette; opt-in; list ids with: noctalia theme --list-templates
 enable_community_templates = true
 community_ids              = []     # fetched from api.noctalia.dev/templates, cached locally
 
@@ -196,7 +196,7 @@ tint_intensity         = 0.3        # 0.0 = no tint, 1.0 = opaque
 # ── Notifications ─────────────────────────────────────────────────────────────
 
 [notification]
-position           = "top_center"   # nasa-punk: under the bar
+position           = "top_center"   # frosted telemetry: under the bar
 colorize_icons = false             # tint app icons only; notification content images keep their colors
 enable_daemon      = true
 show_app_name      = true
@@ -205,9 +205,9 @@ keep_dismissed_in_history = true    # set false to remove history entries when t
 group_by_app       = true           # group notifications by application in the history tab
 layer              = "top"          # top | overlay
 scale              = 1.0            # notification size multiplier applied on top of accessibility.ui_scale
-background_opacity = 0.62           # nasa-punk: glass toast
+background_opacity = 0.62           # frosted telemetry: glass toast
 border             = true           # outline around toast cards; set false for a borderless look
-border_color       = "#FFFFFF38"            # nasa-punk; outline color: theme color role (e.g. "primary") or hex (e.g. "#a8b185")
+border_color       = "#FFFFFF38"            # frosted telemetry; outline color: theme color role (e.g. "primary") or hex (e.g. "#a8b185")
 border_width       = 1              # outline stroke width in px; raise for a thicker outline
 follow_focused_output = false       # show new toasts on the focused output; visible toasts stay pinned there
 # monitors          = ["DP-1"]      # connector names; omit or leave empty for all monitors
@@ -229,14 +229,14 @@ offset_y           = 8              # absolute vertical margin from the screen e
 # ── OSD ───────────────────────────────────────────────────────────────────────
 
 [osd]
-position = "top_center"             # nasa-punk; top_right | top_left | top_center | bottom_right | bottom_left | bottom_center | center_right | center_left | center
+position = "top_center"             # frosted telemetry; top_right | top_left | top_center | bottom_right | bottom_left | bottom_center | center_right | center_left | center
 position_vertical = "top_center"    # same options; used when orientation = "vertical"
 orientation = "horizontal"          # horizontal | vertical (volume/brightness sliders only; text popups stay horizontal)
 hide_delay_ms = 1400                # time before a popup starts hiding; range 250 to 10000 ms
 scale = 1.0                         # OSD size multiplier applied on top of accessibility.ui_scale
-background_opacity = 0.62           # nasa-punk: glass
+background_opacity = 0.62           # frosted telemetry: glass
 border = true                       # outline around OSD popup cards; set false for a borderless look
-border_color = "#FFFFFF38"                 # nasa-punk; outline color: theme color role (e.g. "primary") or hex (e.g. "#a8b185")
+border_color = "#FFFFFF38"                 # frosted telemetry; outline color: theme color role (e.g. "primary") or hex (e.g. "#a8b185")
 border_width = 1                    # outline stroke width in px; raise for a thicker outline
 follow_focused_output = false       # show a new OSD on the focused output; keep it pinned until it disappears
 offset_x = 20                       # absolute horizontal margin from the screen edge
@@ -304,7 +304,7 @@ default_lead_minutes = 10       # used for events with no reminder of their own;
 all_day_digest_time  = "09:00"  # one notification listing today's all-day events; "" disables it
 
 [control_center]
-width                       = 780           # nasa-punk: default 700; wider tiles so mono labels ("Night Light") fit
+width                       = 780           # frosted telemetry: default 700; wider tiles so mono labels ("Night Light") fit
 circular_avatar             = true          # disable to use the shell's corner roundness
 show_avatar_border          = true          # disable to hide the accent ring around the avatar
 
@@ -415,7 +415,7 @@ delete   = ["del"]
 [bar.main]
 position           = "top"          # top | bottom | left | right
 thickness          = 34
-background_opacity = 0.55           # nasa-punk rev 2.4: glass bar
+background_opacity = 0.55           # frosted telemetry: glass bar
 compositor_blur    = true          # false stops compositor blur for this bar
 radius             = 12
 margin_ends        = 180
@@ -656,3 +656,20 @@ show_visualizer = true              # PipeWire audio visualizer beside the playb
 # font_scale = 1.0                    # multiplies text size for this widget only
 # font_weight = 700
 # interactive = false                 # pass clicks/scrolls through to the bar and disable hover/tooltips
+
+# ── Frosted telemetry plugin ─────────────────────────────────────────────────
+# Quick settings and frosted settings drop down from the center clock: left click
+# opens quick settings, right click opens the settings panel. No hotkeys.
+
+[widget.clock.actions]
+left  = "panel-toggle kunu/telemetry:quick"
+right = "panel-toggle kunu/telemetry:settings"
+
+[plugins]
+enabled = ["kunu/telemetry"]
+
+[[plugins.source]]
+name     = "kunu-dev"
+kind     = "path"
+location = "~/test-noc/plugins"   # wherever this repo is cloned on the PC
+enabled  = true

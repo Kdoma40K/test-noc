@@ -1,0 +1,12 @@
+# Frosted telemetry settings panel: every tab, the bar lane editor, and one real write.
+# name            wait  noctalia args
+look              4     msg panel-open kunu/telemetry:settings | -
+bar               3     msg plugin kunu/telemetry:settings all tab bar | -
+bar-selected      3     msg plugin kunu/telemetry:settings all select end 4 | -
+bar-add           3     msg plugin kunu/telemetry:settings all add center | -
+bar-moved         4     msg plugin kunu/telemetry:settings all drop end:1 center:end | -
+msgs              3     msg plugin kunu/telemetry:settings all tab msgs | -
+night             3     msg plugin kunu/telemetry:settings all tab night | -
+plugins           4     msg plugin kunu/telemetry:settings all tab plugins | msg panel-close
+_                 1     msg config-get bar.main.center | -
+_                 1     msg config-get bar.main.end | -
