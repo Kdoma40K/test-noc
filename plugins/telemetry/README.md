@@ -1,8 +1,10 @@
 # Frosted telemetry (kunu/telemetry)
 
-Two panels for Noctalia in the frosted telemetry style, both attached under the bar:
-**quick settings** (`kunu/telemetry:quick`, bar widget `SYS`) and a curated
-**settings** panel (`kunu/telemetry:settings`, bar widget `CFG`).
+Two panels for Noctalia in the frosted telemetry style. Both drop down from the
+center of the bar: **left-click the clock** for quick settings
+(`kunu/telemetry:quick`), **right-click it** for the curated settings panel
+(`kunu/telemetry:settings`). No hotkeys. Optional bar widgets `SYS` and `CFG`
+ship too, but aren't used by default.
 
 ## Quick settings
 Quick settings spec: Arch Rice project, `claude/spec-quick-settings.md` (A/B round 9).
@@ -66,10 +68,14 @@ your `[widget.*]` instances).
 Needs plugin API 46 (check `noctalia --version`; v5.4.1 or newer). Tools:
 `pacman -Q networkmanager bluez-utils wireplumber` (brightnessctl optional).
 
-1. Point Noctalia at this repo's `plugins/` folder as a path source and enable
-   the plugin, in `~/.config/noctalia/config.toml`:
+1. `theme/config.toml` in this repo already enables the plugin and binds the
+   clock. If you keep your own config instead, copy these parts:
 
    ```toml
+   [widget.clock.actions]
+   left  = "panel-toggle kunu/telemetry:quick"
+   right = "panel-toggle kunu/telemetry:settings"
+
    [plugins]
    enabled = ["kunu/telemetry"]
 
@@ -80,23 +86,7 @@ Needs plugin API 46 (check `noctalia --version`; v5.4.1 or newer). Tools:
    enabled  = true
    ```
 
-2. Add the two bar widgets:
-
-   ```toml
-   [widget.sys]
-   type = "kunu/telemetry:sys"
-
-   [widget.cfg]
-   type = "kunu/telemetry:cfg"
-   ```
-   and in `[bar.main] end = [...]` replace `"control-center"` with `"sys", "cfg"`.
-
-3. Optional keybind (Hyprland Lua), replacing Noctalia's control-center bind:
-
-   ```lua
-   hl.bind("SUPER+S", hl.dsp.exec_cmd("noctalia msg panel-toggle kunu/telemetry:quick"))
-   hl.bind("SUPER+comma", hl.dsp.exec_cmd("noctalia msg panel-toggle kunu/telemetry:settings"))
-   ```
+2. Fix `location` if the repo isn't at `~/test-noc`.
 
 Edits to `.luau` files hot-reload. Logs: `~/.cache/noctalia/noctalia.log`.
 

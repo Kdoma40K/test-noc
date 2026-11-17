@@ -656,3 +656,20 @@ show_visualizer = true              # PipeWire audio visualizer beside the playb
 # font_scale = 1.0                    # multiplies text size for this widget only
 # font_weight = 700
 # interactive = false                 # pass clicks/scrolls through to the bar and disable hover/tooltips
+
+# ── Frosted telemetry plugin ─────────────────────────────────────────────────
+# Quick settings and frosted settings drop down from the center clock: left click
+# opens quick settings, right click opens the settings panel. No hotkeys.
+
+[widget.clock.actions]
+left  = "panel-toggle kunu/telemetry:quick"
+right = "panel-toggle kunu/telemetry:settings"
+
+[plugins]
+enabled = ["kunu/telemetry"]
+
+[[plugins.source]]
+name     = "kunu-dev"
+kind     = "path"
+location = "~/test-noc/plugins"   # wherever this repo is cloned on the PC
+enabled  = true
