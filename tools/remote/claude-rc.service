@@ -1,0 +1,13 @@
+[Unit]
+Description=Claude Code Remote Control server (in tmux)
+
+[Service]
+Type=forking
+Environment=PATH=%h/.local/bin:/usr/local/bin:/usr/bin
+ExecStart=/usr/bin/tmux new-session -d -s claude-rc %h/.local/bin/claude-rc.sh
+ExecStop=/usr/bin/tmux kill-session -t claude-rc
+Restart=on-failure
+RestartSec=30
+
+[Install]
+WantedBy=default.target
