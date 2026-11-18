@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# Screenshot the live Hyprland session from outside it (SSH, systemd service).
+export XDG_RUNTIME_DIR="/run/user/$(id -u)"
+export WAYLAND_DISPLAY="$(ls "$XDG_RUNTIME_DIR" | grep -E '^wayland-[0-9]+$' | head -n1)"
+[ -n "$WAYLAND_DISPLAY" ] || { echo "no Hyprland session running"; exit 1; }
+out="${1:-$HOME/Pictures/pc-shot-$(date +%H%M%S).png}"
+grim "$out" && echo "$out"
