@@ -1,0 +1,106 @@
+# Starship prompt, joined bar: OS, folder and git share one rounded bar.
+# Right side: contextual pills (error, duration, language versions) and the clock.
+# Colors are terminal ANSI colors, so everything follows Noctalia's kitty theme.
+# Older versions: starship.toml.bak-pills (separate pills), starship.toml.bak-plain
+#
+# Bar:  L-cap(blue) os | dir(cyan) | git(purple) R-cap
+# The end cap's color depends on whether git is shown, so two tiny custom
+# modules draw it: custom.end_dir outside repos, custom.end_git inside them.
+
+"$schema" = 'https://starship.rs/config-schema.json'
+
+add_newline = true
+command_timeout = 800
+
+format = """
+[](fg:blue)\
+$os\
+[](fg:blue bg:cyan)\
+$directory\
+$git_branch\
+$git_status\
+${custom.end_git}\
+${custom.end_dir}\
+$line_break\
+$character"""
+
+right_format = """$status$cmd_duration$python$nodejs$rust$time"""
+
+# ── Left bar ────────────────────────────────────────────────────────────────
+[os]
+disabled = false
+format = "[$symbol](fg:black bg:blue)"
+
+[os.symbols]
+Arch = " "
+Linux = " "
+
+[directory]
+format = "[  $path$read_only ](fg:black bg:cyan bold)"
+truncation_length = 3
+truncation_symbol = "…/"
+truncate_to_repo = true
+read_only = " 󰌾"
+home_symbol = "~"
+
+[directory.substitutions]
+"Documents" = "󰈙 "
+"Downloads" = " "
+"Pictures" = " "
+"Music" = "󰝚 "
+".config" = " "
+
+[git_branch]
+symbol = " "
+format = "[](fg:cyan bg:purple)[ $symbol$branch](fg:black bg:purple bold)"
+
+[git_status]
+format = "[( $all_status$ahead_behind)](fg:black bg:purple)"
+modified = "!"
+staged = "+"
+untracked = "?"
+ahead = "⇡${count}"
+behind = "⇣${count}"
+diverged = "⇕"
+
+[custom.end_git]
+when = "git rev-parse --git-dir >/dev/null 2>&1"
+shell = ["sh"]
+format = "[ ](bg:purple)[](fg:purple)"
+
+[custom.end_dir]
+when = "! git rev-parse --git-dir >/dev/null 2>&1"
+shell = ["sh"]
+format = "[](fg:cyan)"
+
+[character]
+success_symbol = "[❯](bold green)"
+error_symbol = "[❯](bold red)"
+vimcmd_symbol = "[❮](bold green)"
+
+# ── Right side: contextual pills ────────────────────────────────────────────
+[status]
+disabled = false
+symbol = "✘ "
+format = "[](fg:red)[$symbol$status](fg:black bg:red bold)[](fg:red) "
+
+[cmd_duration]
+min_time = 2000
+format = "[](fg:yellow)[󱎫 $duration](fg:black bg:yellow)[](fg:yellow) "
+
+[python]
+symbol = " "
+format = "[](fg:yellow)[$symbol($version)( \\($virtualenv\\))](fg:black bg:yellow)[](fg:yellow) "
+
+[nodejs]
+symbol = " "
+format = "[](fg:green)[$symbol($version)](fg:black bg:green)[](fg:green) "
+
+[rust]
+symbol = " "
+format = "[](fg:red)[$symbol($version)](fg:black bg:red)[](fg:red) "
+
+[time]
+disabled = false
+time_format = "%H:%M"
+format = "[](fg:bright-black)[ $time](fg:black bg:bright-black)[](fg:bright-black)"

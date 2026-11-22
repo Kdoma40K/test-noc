@@ -1,0 +1,33 @@
+@import "/home/kdoma/.cache/noctalia/zen-browser/zen-userChrome.css";
+
+/* Glass overrides: Noctalia's Zen theme paints these solid; tint once at 80% to match kitty.
+   Kept here (not in the cache file) because Noctalia regenerates that on every theme change. */
+:root {
+  --glass-base: color-mix(in srgb, var(--base) 88%, transparent); /* tuned by eye to match kitty (0.80 looked lighter in Zen) */
+  --zen-main-browser-background: var(--glass-base) !important;
+  --zen-themed-toolbar-bg: transparent !important;
+  --toolbar-bgcolor: transparent !important;
+  --toolbox-bgcolor-inactive: transparent !important;
+  --lwt-sidebar-background-color: transparent !important;
+}
+
+#zen-browser-background {
+  --zen-main-browser-background: var(--glass-base) !important;
+  --zen-main-browser-background-old: var(--glass-base) !important;
+}
+
+#main-window,
+#zen-main-app-wrapper,
+#browser {
+  background: transparent !important;
+}
+
+#navigator-toolbox,
+#zen-tabbox-wrapper,
+#zen-sidebar-splitter,
+#zen-appcontent-navbar-container,
+#TabsToolbar,
+hbox#titlebar,
+.sidebar-panel {
+  background-color: transparent !important;
+}

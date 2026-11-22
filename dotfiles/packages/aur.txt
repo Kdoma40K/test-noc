@@ -1,0 +1,3 @@
+yay-bin
+yay-bin-debug
+zen-browser-bin

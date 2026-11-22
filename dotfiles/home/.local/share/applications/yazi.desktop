@@ -1,0 +1,13 @@
+[Desktop Entry]
+Name=Yazi
+GenericName=File Manager
+Comment=Terminal file manager (opens in kitty)
+Icon=yazi
+Exec=kitty --class yazi --title Yazi -e yazi %f
+TryExec=yazi
+Terminal=false
+Type=Application
+MimeType=inode/directory;
+Categories=System;FileManager;FileTools;
+Keywords=File;Manager;Explorer;Files;Folder;Dolphin;
+StartupWMClass=yazi
