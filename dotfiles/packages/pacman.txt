@@ -51,6 +51,7 @@ qt5-wayland
 qt6-wayland
 qt6ct
 sddm
+seahorse
 slurp
 smartmontools
 sof-firmware

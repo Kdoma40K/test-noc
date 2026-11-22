@@ -5,7 +5,7 @@ background_opacity = 0.95999997854232788
 icon_saturation = 0.84999998100101948
 
 [lockscreen_widgets]
-enabled = false
+enabled = true
 schema_version = 2
 widget_order = [ "lockscreen-login-box@eDP-1" ]
 
