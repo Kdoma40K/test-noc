@@ -3,7 +3,7 @@
 /* Glass overrides: Noctalia's Zen theme paints these solid; tint once at 80% to match kitty.
    Kept here (not in the cache file) because Noctalia regenerates that on every theme change. */
 :root {
-  --glass-base: color-mix(in srgb, var(--base) 88%, transparent); /* tuned by eye to match kitty (0.80 looked lighter in Zen) */
+  --glass-base: color-mix(in srgb, var(--base) 64%, transparent); /* tuned by eye to match the Noctalia bar (0.55); Zen reads lighter than kitty at equal values */
   --zen-main-browser-background: var(--glass-base) !important;
   --zen-themed-toolbar-bg: transparent !important;
   --toolbar-bgcolor: transparent !important;
