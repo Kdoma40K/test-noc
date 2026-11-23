@@ -1,7 +1,6 @@
 # dotfiles (branch `active-pc`)
 
 Snapshot of the live configs on the **desktop PC** (NUC 11 Extreme, HDMI-A-2 4K@240, NVIDIA). The laptop (tinyputy) lives on `active`; don't merge one into the other wholesale: monitor names, scale, polkit/keyring and fish config differ. Every change here gets synced and pushed to `active-pc`.
-synced here and pushed so there is a history of it.
 
 ```bash
 ./dotfiles/sync.sh                      # copy live files in + refresh package lists
