@@ -3,7 +3,7 @@
 -- Previous laptop config: hyprland.lua.bak-before-nuc
 
 -- ── Monitor ──────────────────────────────────────────────────────────────────
-hl.monitor({ output = "eDP-1", mode = "preferred", position = "auto", scale = "auto" })
+hl.monitor({ output = "HDMI-A-2", mode = "3840x2160@240", position = "auto", scale = 1.25 })
 hl.monitor({ output = "", mode = "preferred", position = "auto", scale = 1 }) -- anything else
 
 -- ── Programs ─────────────────────────────────────────────────────────────────
@@ -15,7 +15,7 @@ local files    = "kitty --class yazi --title Yazi -e yazi"
 hl.env("ELECTRON_OZONE_PLATFORM_HINT", "auto")
 hl.env("QT_QPA_PLATFORM", "wayland;xcb")
 -- Qt/KDE apps (Dolphin) read ~/.config/kdeglobals, which noctalia's kcolorscheme template writes.
-hl.env("QT_QPA_PLATFORMTHEME", "qt6ct")
+hl.env("QT_QPA_PLATFORMTHEME", "kde")  -- PC: qt6ct not installed; laptop uses qt6ct
 hl.env("XCURSOR_SIZE", "24")
 hl.env("HYPRCURSOR_SIZE", "24")
 
@@ -25,6 +25,7 @@ hl.on("hyprland.start", function()
     -- NUC also starts gnome-keyring-daemon; not installed on this laptop.
     -- Password prompts for admin actions (pkexec, e.g. noctalia msg greeter-sync)
     hl.exec_cmd("systemctl --user start hyprpolkitagent")
+    hl.exec_cmd("gnome-keyring-daemon --start --components=secrets")
     hl.exec_cmd("noctalia")
     -- Runs in the tray so the Firefox extension can unlock with fingerprint
     hl.exec_cmd("bitwarden-desktop --start-minimized")
@@ -189,6 +190,7 @@ hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), { locked = true,
 -- 6. Screenshot
 hl.bind("Print", hl.dsp.exec_cmd("grim - | wl-copy"), { locked = true, description = "Full screen to clipboard" })
 hl.bind("SUPER + SHIFT + S", hl.dsp.exec_cmd(n .. "screenshot-region"), { description = "Region screenshot" })
+
 
 
 -- For Noctalia Color templates

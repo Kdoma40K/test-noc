@@ -1,25 +1,26 @@
-[Default Applications]
-inode/directory=yazi.desktop
-x-scheme-handler/http=zen.desktop
-x-scheme-handler/https=zen.desktop
-x-scheme-handler/chrome=zen.desktop
-text/html=zen.desktop
-application/x-extension-htm=zen.desktop
-application/x-extension-html=zen.desktop
-application/x-extension-shtml=zen.desktop
-application/xhtml+xml=zen.desktop
-application/x-extension-xhtml=zen.desktop
-application/x-extension-xht=zen.desktop
-x-scheme-handler/claude-cli=claude-code-url-handler.desktop
 
-[Added Associations]
-x-scheme-handler/http=zen.desktop;
-x-scheme-handler/https=zen.desktop;
-x-scheme-handler/chrome=zen.desktop;
-text/html=zen.desktop;
-application/x-extension-htm=zen.desktop;
-application/x-extension-html=zen.desktop;
-application/x-extension-shtml=zen.desktop;
-application/xhtml+xml=zen.desktop;
-application/x-extension-xhtml=zen.desktop;
-application/x-extension-xht=zen.desktop;
+[Default Applications]
+x-scheme-handler/claude-cli=claude-code-url-handler.desktop
+image/png=panacea-media.desktop
+image/jpeg=panacea-media.desktop
+image/gif=panacea-media.desktop
+image/webp=panacea-media.desktop
+image/bmp=panacea-media.desktop
+image/tiff=panacea-media.desktop
+image/svg+xml=panacea-media.desktop
+video/mp4=mpv.desktop
+video/webm=mpv.desktop
+video/x-matroska=mpv.desktop
+video/quicktime=mpv.desktop
+audio/mpeg=mpv.desktop
+audio/flac=mpv.desktop
+audio/ogg=mpv.desktop
+audio/x-wav=mpv.desktop
+text/plain=panacea-text.desktop
+text/markdown=panacea-text.desktop
+application/x-shellscript=panacea-text.desktop
+text/x-python=panacea-text.desktop
+text/x-lua=panacea-text.desktop
+application/json=panacea-text.desktop
+text/csv=panacea-text.desktop
+inode/directory=panacea-files.desktop

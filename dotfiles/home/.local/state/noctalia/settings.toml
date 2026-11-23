@@ -7,25 +7,25 @@ icon_saturation = 0.84999998100101948
 [lockscreen_widgets]
 enabled = true
 schema_version = 2
-widget_order = [ "lockscreen-login-box@eDP-1" ]
+widget_order = [ "lockscreen-login-box@HDMI-A-2" ]
 
     [lockscreen_widgets.grid]
     cell_size = 16
     major_interval = 4
     visible = true
 
-    [lockscreen_widgets.widget."lockscreen-login-box@eDP-1"]
+    [lockscreen_widgets.widget."lockscreen-login-box@HDMI-A-2"]
     box_height = 196.0
     box_width = 810.0
-    cx = 720.0
-    cy = 778.0
-    output = "eDP-1"
-    placement_height = 960.0
-    placement_width = 1440.0
+    cx = 1536.0001220703125
+    cy = 1400.39990234375
+    output = "HDMI-A-2"
+    placement_height = 1728.0
+    placement_width = 3072.0
     rotation = 0.0
     type = "login_box"
 
-        [lockscreen_widgets.widget."lockscreen-login-box@eDP-1".settings]
+        [lockscreen_widgets.widget."lockscreen-login-box@HDMI-A-2".settings]
         background_color = "surface_container"
         background_opacity = 0.62
         background_radius = 12.0
@@ -48,7 +48,7 @@ enabled = [ "kenn/keybind-cheatsheet" ]
 
     [[plugins.source]]
     kind = "path"
-    location = "~/test-noc/plugins"
+    location = "~/Projects/test-noc/plugins"
     name = "kunu-dev"
 
     [[plugins.source]]
@@ -78,5 +78,5 @@ path = "/home/kdoma/Pictures/Wallpapers/plane.jpg"
 [wallpaper.last]
 path = "/home/kdoma/Pictures/Wallpapers/plane.jpg"
 
-[wallpaper.monitors.eDP-1]
+[wallpaper.monitors.HDMI-A-2]
 path = "/home/kdoma/Pictures/Wallpapers/plane.jpg"

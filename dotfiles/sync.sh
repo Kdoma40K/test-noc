@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Copy the live configs on this PC into dotfiles/, and refresh the package lists.
-# Run after any change, then commit and push to the `active` branch:
+# Run after any change, then commit and push to this machine's branch (`active` laptop, `active-pc` desktop):
 #   ./dotfiles/sync.sh && git add -A dotfiles && git commit -m "..." && git push
 set -euo pipefail
 HERE="$(cd "$(dirname "$0")" && pwd)"
